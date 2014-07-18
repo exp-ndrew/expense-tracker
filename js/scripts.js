@@ -1,12 +1,16 @@
- var NewCategory = {
+ var Category = {
   items: [],
-  // totalCost: function(price){
-  //   var grandTotal = 0;
-  //   for (var i=0; i<price.length; i++) {
-  //     this.total = this[[items[i]].price] + price[i];
-  //   }
-  // }
+  total: function() {
+    var grandTotal = 0;
+      this.items.forEach(function(item) {
+      grandTotal = grandTotal + item.total;
+      console.log(item.total)
+    })
+    return grandTotal;
+  }
 };
+
+
 
 var Purchase = {
   description: "",
@@ -35,7 +39,7 @@ $(document).ready(function() {
     currentList = catName;
 
     //build the category object
-    category = Object.create(NewCategory); // creates the object
+    category = Object.create(Category); // creates the object
     category.name = catName;
 
     $("input#new-category").val("");
@@ -64,7 +68,7 @@ $(document).ready(function() {
     var newQuantity = $("#new-quantity").val();
 
     //build the purchase object
-    var purchase = Object.create(NewPurchase);
+    var purchase = Object.create(Purchase);
     purchase.description = $("#new-description").val();
     purchase.price = parseFloat($("#new-price").val());
     purchase.quantity = $("#new-quantity").val();

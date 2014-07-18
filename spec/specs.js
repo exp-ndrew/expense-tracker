@@ -14,3 +14,13 @@ describe('Purchase', function() {
     });
   });
 });
+describe('Category', function() {
+  describe("total", function() {
+    it("adds the total of all prices in the category", function(){
+      var testCategory = Object.create(Category);
+      testCategory.items = [{description: "fruit", price: 3, quantity: 2, total: 6},
+                            {description: "veggies", price: 4, quantity: 3, total: 12}];
+      testCategory.total().should.equal(18);
+    });
+  });
+});

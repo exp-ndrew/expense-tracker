@@ -3,14 +3,11 @@
   total: function() {
     var grandTotal = 0;
       this.items.forEach(function(item) {
-      grandTotal = grandTotal + item.total;
-      console.log(item.total)
+      grandTotal = grandTotal + item.total();
     })
     return grandTotal;
   }
 };
-
-
 
 var Purchase = {
   description: "",
@@ -22,7 +19,7 @@ var Purchase = {
 };
 
 $(document).ready(function() {
-
+  var category;
   var currentList;
 
 //CLICK THE CATEGORY ADD BUTTON
@@ -48,12 +45,15 @@ $(document).ready(function() {
 
 //CLICK A LIST ITEM
     $(".category-list-item").last().click(function(event) {
-      currentList = catName;
+      currentList = category;
+      console.log(currentList);
       $(".selected-category").text(catName);
-      $("#purchase-table").empty();
+      $("#purchase-table").text("");
+      $("#purchase-total").text("");
       currentList.items.forEach(function(item) {
-        $("#purchase-table").append("<tr><td>" + currentList[items].description + "</td>" + "<td>$" + currentList[items].price + "</td></tr>");
+        $("#purchase-table").append("<tr><td>" + item.description + "</td><td>$" + item.price + "</td><td>" + item.quantity + "</td><td>$" + item.total() + "</td></tr>");
       });
+      console.log(currentList)
       //populate the right side with the items in the object/array/whatever
     });
   });
@@ -74,15 +74,13 @@ $(document).ready(function() {
     purchase.quantity = $("#new-quantity").val();
     category.items.push(purchase);
 
-    console.log(purchase.total());
+
 
     //append to the purchases list
     $("#purchase-table").append("<tr><td>" + purchase.description + "</td><td>$" + purchase.price + "</td><td>" + purchase.quantity + "</td><td>$" + purchase.total() + "</td></tr>");
 
     //fill in the grand total box
-    $("#purchase-total").text("<td>Your total is $" + category.total() + ". </td>")
-
-    // console.log(category)
+    $("#purchase-total").text("Your total is $" + category.total() + ".")
 
     //clear the form
     $("input#new-description").val("");
